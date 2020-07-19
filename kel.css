@@ -5,3 +5,25 @@ body{
     margin-left:2%;
     background: linear-gradient(#80BCA3, #B6D8C0); 
 }
+h1{
+  color: #BF4D28;
+  font-size: 3em;
+  line-height:1em;
+  margin-bottom: 15px;
+  font-family: sans-serif;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  @media{
+    
+  }
+}
+
+p{
+  line-height: 1em;
+}
+
+div{
+  color: #BF4D28;
+  font-family: sans-serif;
+  line-height:10px;
+  margin:2%;
+}
