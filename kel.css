@@ -1,20 +1,16 @@
+
 body{
-  background: #F6F7BD;
+  background: #00000f;
 }
-#canvas{
-    margin-left:2%;
-    background: linear-gradient(#80BCA3, #B6D8C0); 
-}
+
 h1{
-  color: #BF4D28;
+  color: #f0ffff;
   font-size: 3em;
   line-height:1em;
   margin-bottom: 15px;
   font-family: sans-serif;
   text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
-  @media{
-    
-  }
+  padding:30px 0px 30px 0px;
 }
 
 p{
@@ -22,8 +18,13 @@ p{
 }
 
 div{
-  color: #BF4D28;
+  color: #000000;
   font-family: sans-serif;
   line-height:10px;
   margin:2%;
+}
+
+#canvas{
+    margin-left:2%;
+    background: linear-gradient(#010729, #012e2b); 
 }
