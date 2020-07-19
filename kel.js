@@ -3,7 +3,7 @@
     window.requestAnimationFrame = requestAnimationFrame;
 })();
 
-	var canvas = document.getElementById("canvas"),
+var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d"),
     width = 1000,
     height = 400,
@@ -17,16 +17,15 @@
         velY: 0,
         jumping: false,
         grounded: false,
-        color:'#E6AC27'
+        color:'#00ffc5'
     },
-	
     keys = [],
     friction = 0.8,
     gravity = 0.4,
     boxes = [],
-    powerup = []; 
+    powerup = [];  
 
-	powerup.push({
+powerup.push({
         x: 810,
         y: 250,
         width: 20,
@@ -34,7 +33,7 @@
         color: '#BF4D28',
         effect: 'shrink'
     });
-	powerup.push({
+powerup.push({
         x: 400,
         y: 150,
         width: 20,
@@ -42,55 +41,51 @@
         color: '#BF4D28',
         effect: 'gravity'
     });
-	powerup.push({
+powerup.push({
         x: -15,
         y: 88,
         width: 20,
         height: 20,
-        color: '#222',
+        color: '#ffffff',
         effect: 'tele',
   			rotate: 20,
         px: 20,//where they get teleported
         py: 370,
         stay: true
     });
-	powerup.push({
+powerup.push({
         x: 60,
         y: 365,
         width: 20,
         height: 20,
-        color: '#2A5D77',
+        color: '#35e706',
         effect: 'win',
         stay: true
     });
 
 // dimensions
-boxes.push({
-	//box on left
+boxes.push({//box on left
     x: 0,
     y: height/4+10,
     width: 10,
     height: height,
     color: 'green'
 });
-boxes.push({
-	//box on left
+boxes.push({//box on left
     x: 0,
     y: 0,
     width: 10,
     height: height/4-15,
     color: 'green'
 });
-boxes.push({
-	//box for the ground
+boxes.push({//box for the ground
     x: 0,
     y: height - 10,
     width: width,
     height: 50,
     color: 'orange'
 });
-boxes.push({
-	//box on right
+boxes.push({//box on right
     x: width - 10,
     y: 0,
     width: 50,
