@@ -164,3 +164,21 @@ document.body.addEventListener("keyup", function (e) {
 window.addEventListener("load", function () {
     update();
 });
+
+function update() {
+	
+	// check keys
+    if (keys[38] || keys[32] || keys[87]) {
+        // up arrow or space
+        
+    }
+    if (keys[39] || keys[68]) {
+        // right arrow
+        
+    }
+    if (keys[37] || keys[65]) {
+        // left arrow
+        
+    }
+	
+}
