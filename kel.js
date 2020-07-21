@@ -170,15 +170,23 @@ function update() {
 	// check keys
     if (keys[38] || keys[32] || keys[87]) {
         // up arrow or space
-        
+        if (!player.jumping && player.grounded) {
+            player.jumping = true;
+            player.grounded = false;
+            player.velY = -player.speed * 2.5;//how high to jump
+        }
     }
     if (keys[39] || keys[68]) {
         // right arrow
-        
+        if (player.velX < player.speed) {
+            player.velX++;
+        }
     }
     if (keys[37] || keys[65]) {
         // left arrow
-        
+        if (player.velX > -player.speed) {
+            player.velX--;
+        }
     }
 	
 	player.velX *= friction;
