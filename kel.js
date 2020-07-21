@@ -191,8 +191,6 @@ function update() {
         }
     }
 	
-<<<<<<< Updated upstream
-=======
 	player.velX *= friction;
     player.velY += gravity;
 
@@ -230,6 +228,25 @@ function update() {
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.width, player.height);
     
+	  player.velX *= friction;
+    player.velY += gravity;
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.beginPath();
+    
+    player.grounded = false;
 	
->>>>>>> Stashed changes
+	
+	
+	if(player.grounded){
+         player.velY = 0;
+    }
+    
+    player.x += player.velX;
+    player.y += player.velY;
+  
+    ctx.fill();//Draw charater stuff
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+    
 }
