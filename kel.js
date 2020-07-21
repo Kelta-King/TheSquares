@@ -202,7 +202,9 @@ function update() {
     ctx.beginPath();
     
     player.grounded = false;
-	for (var i = 0; i < boxes.length; i++) {//print boxes
+	for (var i = 0; i < boxes.length; i++) {
+		
+		//print boxes
         ctx.fillStyle = boxes[i].color;
         ctx.rect(boxes[i].x, boxes[i].y, boxes[i].width, boxes[i].height);
         
@@ -219,8 +221,7 @@ function update() {
         }
 
     }
-	
-	
+		
 	if(player.grounded){
          player.velY = 0;
     }
@@ -253,4 +254,26 @@ function update() {
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.width, player.height);
     
+	for(var j = 0; j < powerup.length; j++){
+		
+		ctx.save();
+		var cx = powerup[j].x + 0.5 * powerup[j].width;
+		var cy = powerup[j].y + 0.5 * powerup[j].height; 
+		ctx.translate(cx, cy);  
+		ctx.rotate( (Math.PI / 180) * 45);
+		
+		if(powerup[j].effect  === 'tele'){
+			
+			ctx.rotate( (Math.PI / 180) * powerup[j].rotate);
+			powerup[j].rotate = (Math.PI / 180) * powerup[j].rotate;
+			
+		}
+		
+		ctx.translate(-cx, -cy);
+		ctx.fillStyle = powerup[j].color;
+		ctx.fillRect(powerup[j].x, powerup[j].y, powerup[j].width, powerup[j].height);
+		ctx.restore();
+		
+	}
+	
 }
