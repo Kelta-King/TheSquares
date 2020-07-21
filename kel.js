@@ -174,6 +174,12 @@ function update() {
             player.jumping = true;
             player.grounded = false;
             player.velY = -player.speed * 2.5;//how high to jump
+		alert("Herre");
+        if (!player.jumping && player.grounded) {
+            player.jumping = true;
+            player.grounded = false;
+            //how high to jump
+			player.velY = -player.speed * 2.5;
         }
     }
     if (keys[39] || keys[68]) {
@@ -196,6 +202,43 @@ function update() {
     ctx.beginPath();
     
     player.grounded = false;
+	for (var i = 0; i < boxes.length; i++) {//print boxes
+        ctx.fillStyle = boxes[i].color;
+        ctx.rect(boxes[i].x, boxes[i].y, boxes[i].width, boxes[i].height);
+        
+        var dir = colCheck(player, boxes[i]);
+
+        if (dir === "l" || dir === "r") {
+            player.velX = 0;
+            player.jumping = false;
+        } else if (dir === "b") {
+            player.grounded = true;
+            player.jumping = false;
+        } else if (dir === "t") {
+            player.velY *= -1;
+        }
+
+    }
+	
+	
+	if(player.grounded){
+         player.velY = 0;
+    }
+    
+    player.x += player.velX;
+    player.y += player.velY;
+  
+    ctx.fill();//Drawing charater stuff
+    ctx.fillStyle = player.color;
+    ctx.fillRect(player.x, player.y, player.width, player.height);
+    
+	  player.velX *= friction;
+    player.velY += gravity;
+
+    ctx.clearRect(0, 0, width, height);
+    ctx.beginPath();
+    
+    player.grounded = false;
 	
 	
 	
@@ -210,5 +253,4 @@ function update() {
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.width, player.height);
     
-	
 }
