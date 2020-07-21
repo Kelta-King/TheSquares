@@ -274,6 +274,15 @@ function update() {
 		ctx.fillRect(powerup[j].x, powerup[j].y, powerup[j].width, powerup[j].height);
 		ctx.restore();
 		
+		//powerup collision
+		if(colCheck(player, powerup[j])!==null){
+			
+			//make power up go away
+			if(powerup[j].stay!==true){
+				powerup[j].width=0;
+			}
+		}
+		
 	}
 	
 }
