@@ -152,45 +152,45 @@ boxes.push({
 canvas.width = width;
 canvas.height = height;
 
-document.body.addEventListener("keydown", function (e) {
+document.body.addEventListener("keydown", function(e){
     keys[e.keyCode] = true;
 });
 
-document.body.addEventListener("keyup", function (e) {
+document.body.addEventListener("keyup", function(e){
     keys[e.keyCode] = false;
 });
 
 
-window.addEventListener("load", function () {
+window.addEventListener("load", function(){
     update();
 });
 
 function update() {
 	
 	// check keys
-    if (keys[38] || keys[32] || keys[87]) {
+    if(keys[38] || keys[32] || keys[87]){
         // up arrow or space
-        if (!player.jumping && player.grounded) {
+        if(!player.jumping && player.grounded){
             player.jumping = true;
             player.grounded = false;
             player.velY = -player.speed * 2.5;//how high to jump
 		alert("Herre");
-        if (!player.jumping && player.grounded) {
+        if(!player.jumping && player.grounded){
             player.jumping = true;
             player.grounded = false;
             //how high to jump
 			player.velY = -player.speed * 2.5;
         }
     }
-    if (keys[39] || keys[68]) {
+    if(keys[39] || keys[68]){
         // right arrow
-        if (player.velX < player.speed) {
+        if(player.velX < player.speed){
             player.velX++;
         }
     }
-    if (keys[37] || keys[65]) {
+    if(keys[37] || keys[65]){
         // left arrow
-        if (player.velX > -player.speed) {
+        if(player.velX > -player.speed){
             player.velX--;
         }
     }
@@ -202,7 +202,7 @@ function update() {
     ctx.beginPath();
     
     player.grounded = false;
-	for (var i = 0; i < boxes.length; i++) {
+	for(var i = 0;i < boxes.length; i++){
 		
 		//print boxes
         ctx.fillStyle = boxes[i].color;
@@ -210,13 +210,15 @@ function update() {
         
         var dir = colCheck(player, boxes[i]);
 
-        if (dir === "l" || dir === "r") {
+        if(dir === "l" || dir === "r"){
             player.velX = 0;
             player.jumping = false;
-        } else if (dir === "b") {
+        } 
+		else if(dir === "b"){
             player.grounded = true;
             player.jumping = false;
-        } else if (dir === "t") {
+        } 
+		else if(dir === "t"){
             player.velY *= -1;
         }
 
@@ -254,7 +256,7 @@ function update() {
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.width, player.height);
     
-	for(var j = 0; j < powerup.length; j++){
+	for(var j = 0;j < powerup.length; j++){
 		
 		ctx.save();
 		var cx = powerup[j].x + 0.5 * powerup[j].width;
@@ -277,6 +279,30 @@ function update() {
 		//powerup collision
 		if(colCheck(player, powerup[j])!==null){
 			
+			if(powerup[j].effect==='gravity'){
+				gravity= 0.4;//decrease gravity
+				player.speed = 4;
+				player.color = 'white';
+			}
+			else if(powerup[j].effect==='shrink'){
+				player.width= 10;
+				player.height= 10;
+				player.speed = 5;
+			}
+			else if(powerup[j].effect==='tele'){
+				player.x=powerup[j].px;
+				player.y=powerup[j].py;
+			}
+			else if(powerup[j].effect==='win'){
+				var r = confirm("You win! Play again?");
+				if(r == false){
+				    player.x=200;
+				    player.y=200;
+				} 
+				else{
+					window.location.href = window.location.href;
+				}
+			}
 			//make power up go away
 			if(powerup[j].stay!==true){
 				powerup[j].width=0;
