@@ -26,42 +26,45 @@ var canvas = document.getElementById("canvas"),
     powerup = [];  
 
 powerup.push({
-        x: 810,
-        y: 250,
-        width: 20,
-        height: 20,
-        color: '#BF4D28',
-        effect: 'shrink'
-    });
+    x: 810,
+    y: 250,
+    width: 20,
+    height: 20,
+    color: '#BF4D28',
+    effect: 'shrink'
+});
+
 powerup.push({
-        x: 400,
-        y: 150,
-        width: 20,
-        height: 20,
-        color: '#BF4D28',
-        effect: 'gravity'
-    });
+    x: 400,
+    y: 150,
+    width: 20,
+    height: 20,
+    color: '#BF4D28',
+    effect: 'gravity'
+});
+
 powerup.push({
-        x: -15,
-        y: 88,
-        width: 20,
-        height: 20,
-        color: '#ffffff',
-        effect: 'tele',
-  			rotate: 20,
-        px: 20,//where they get teleported
-        py: 370,
-        stay: true
-    });
+    x: -15,
+    y: 88,
+    width: 20,
+    height: 20,
+    color: '#ffffff',
+    effect: 'tele',
+  	rotate: 20,
+    px: 20,//where they get teleported
+    py: 370,
+    stay: true
+});
+
 powerup.push({
-        x: 60,
-        y: 365,
-        width: 20,
-        height: 20,
-        color: '#35e706',
-        effect: 'win',
-        stay: true
-    });
+    x: 60,
+    y: 365,
+    width: 20,
+    height: 20,
+    color: '#35e706',
+    effect: 'win',
+    stay: true
+});
 
 // dimensions
 boxes.push({//box on left
@@ -174,14 +177,9 @@ function update() {
             player.jumping = true;
             player.grounded = false;
             player.velY = -player.speed * 2.5;//how high to jump
-		alert("Herre");
-        if(!player.jumping && player.grounded){
-            player.jumping = true;
-            player.grounded = false;
-            //how high to jump
-			player.velY = -player.speed * 2.5;
-        }
+		}
     }
+    
     if(keys[39] || keys[68]){
         // right arrow
         if(player.velX < player.speed){
@@ -235,7 +233,7 @@ function update() {
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.width, player.height);
     
-	  player.velX *= friction;
+	player.velX *= friction;
     player.velY += gravity;
 
     ctx.clearRect(0, 0, width, height);
