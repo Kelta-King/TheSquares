@@ -170,80 +170,56 @@ window.addEventListener("load", function(){
 
 function update() {
 	
-	// check keys
-    if(keys[38] || keys[32] || keys[87]){
+    // check keys
+    if (keys[38] || keys[32] || keys[87]) {
         // up arrow or space
-        if(!player.jumping && player.grounded){
+        if (!player.jumping && player.grounded) {
             player.jumping = true;
             player.grounded = false;
             player.velY = -player.speed * 2.5;//how high to jump
-		}
+        }
     }
-    
-    if(keys[39] || keys[68]){
+    if (keys[39] || keys[68]) {
         // right arrow
-        if(player.velX < player.speed){
+        if (player.velX < player.speed) {
             player.velX++;
         }
     }
-    if(keys[37] || keys[65]){
+    if (keys[37] || keys[65]) {
         // left arrow
-        if(player.velX > -player.speed){
+        if (player.velX > -player.speed) {
             player.velX--;
         }
     }
-	
-	player.velX *= friction;
+  
+  	
+
+    player.velX *= friction;
     player.velY += gravity;
 
     ctx.clearRect(0, 0, width, height);
     ctx.beginPath();
     
     player.grounded = false;
-	for(var i = 0;i < boxes.length; i++){
-		
-		//print boxes
+    for (var i = 0; i < boxes.length; i++) {//print boxes
         ctx.fillStyle = boxes[i].color;
         ctx.rect(boxes[i].x, boxes[i].y, boxes[i].width, boxes[i].height);
         
         var dir = colCheck(player, boxes[i]);
 
-        if(dir === "l" || dir === "r"){
+        if (dir === "l" || dir === "r") {
             player.velX = 0;
             player.jumping = false;
-        } 
-		else if(dir === "b"){
+        } else if (dir === "b") {
             player.grounded = true;
             player.jumping = false;
-        } 
-		else if(dir === "t"){
+        } else if (dir === "t") {
             player.velY *= -1;
         }
 
     }
-		
-	if(player.grounded){
-         player.velY = 0;
-    }
     
-    player.x += player.velX;
-    player.y += player.velY;
-  
-    ctx.fill();//Drawing charater stuff
-    ctx.fillStyle = player.color;
-    ctx.fillRect(player.x, player.y, player.width, player.height);
-    
-	player.velX *= friction;
-    player.velY += gravity;
-
-    ctx.clearRect(0, 0, width, height);
-    ctx.beginPath();
-    
-    player.grounded = false;
-	
-	
-	
-	if(player.grounded){
+    if(player.grounded){
          player.velY = 0;
     }
     
@@ -254,64 +230,57 @@ function update() {
     ctx.fillStyle = player.color;
     ctx.fillRect(player.x, player.y, player.width, player.height);
     
-	for(var j = 0;j < powerup.length; j++){
-		
-		ctx.save();
-		var cx = powerup[j].x + 0.5 * powerup[j].width;
-		var cy = powerup[j].y + 0.5 * powerup[j].height; 
-		ctx.translate(cx, cy);  
-		ctx.rotate( (Math.PI / 180) * 45);
-		
-		if(powerup[j].effect  === 'tele'){
-			
-			ctx.rotate( (Math.PI / 180) * powerup[j].rotate);
-			powerup[j].rotate = (Math.PI / 180) * powerup[j].rotate;
-			
-		}
-		
-		ctx.translate(-cx, -cy);
-		ctx.fillStyle = powerup[j].color;
-		ctx.fillRect(powerup[j].x, powerup[j].y, powerup[j].width, powerup[j].height);
-		ctx.restore();
-		
-		//powerup collision
-		if(colCheck(player, powerup[j])!==null){
-			
-			if(powerup[j].effect==='gravity'){
-				gravity= 0.4;//decrease gravity
-				player.speed = 4;
-				player.color = 'white';
-			}
-			else if(powerup[j].effect==='shrink'){
-				player.width= 10;
-				player.height= 10;
-				player.speed = 5;
-			}
-			else if(powerup[j].effect==='tele'){
-				player.x=powerup[j].px;
-				player.y=powerup[j].py;
-			}
-			else if(powerup[j].effect==='win'){
-				var r = confirm("You win! Play again?");
-				if(r == false){
-				    player.x=200;
-				    player.y=200;
-				} 
-				else{
-					window.location.href = window.location.href;
-				}
-			}
-			//make power up go away
-			if(powerup[j].stay!==true){
-				powerup[j].width=0;
-			}
-		}
-		
-	}
-	
+    //draw powerup stuff 
+    for(var j = 0; j < powerup.length; j++){
+      ctx.save();
+      var cx = powerup[j].x + 0.5 * powerup[j].width,   // x of shape center
+      cy = powerup[j].y + 0.5 * powerup[j].height; //y of shape center
+      ctx.translate(cx, cy);  //translate to center of shape
+      ctx.rotate( (Math.PI / 180) * 45);//rotate 25 degrees.
+      if(powerup[j].effect  === 'tele'){
+        ctx.rotate( (Math.PI / 180) * powerup[j].rotate);//rotate 25 degrees.
+        powerup[j].rotate = (Math.PI / 180) * powerup[j].rotate;
+      }
+      ctx.translate(-cx, -cy);            //translate center back to 0,0
+      ctx.fillStyle = powerup[j].color;
+      ctx.fillRect(powerup[j].x, powerup[j].y, powerup[j].width, powerup[j].height);
+      ctx.restore();
+      
+      //powerup collision
+      if(colCheck(player, powerup[j])!==null){//touched power up!
+        if(powerup[j].effect==='gravity'){
+          gravity= 0.4;//decrease gravity
+          player.speed = 4;
+          player.color = 'white';
+        }
+        else if (powerup[j].effect==='shrink'){
+          player.width= 10;
+          player.height= 10;
+          player.speed = 5;
+        }
+        else if (powerup[j].effect==='tele'){
+          player.x=powerup[j].px;
+          player.y=powerup[j].py;
+        }
+        else if (powerup[j].effect==='win'){
+          var r = confirm("You win! Play again?");
+          if (r == false) {
+               player.x=200;
+               player.y=200;
+          } else {
+               window.location.href = window.location.href;
+          }
+        }
+        if(powerup[j].stay!==true)
+        powerup[j].width=0;//make power up go away
+      }
+    }
+    //powerup stuff
+
+    requestAnimationFrame(update);
 }
 
-
+function colCheck(shapeA, shapeB){
     // get the vectors to check against
     var vX = (shapeA.x + (shapeA.width / 2)) - (shapeB.x + (shapeB.width / 2)),
         vY = (shapeA.y + (shapeA.height / 2)) - (shapeB.y + (shapeB.height / 2)),
